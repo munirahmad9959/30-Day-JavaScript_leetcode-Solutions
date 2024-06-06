@@ -6,6 +6,7 @@
 var timeLimit = function(fn, t) {
     return async function (...args) {
         return new Promise((resolve, reject) => {
+            console.log("in promise object")
             const timeout = setTimeout(() => {
                 reject("Time Limit Exceeded");
             }, t);
@@ -14,10 +15,13 @@ var timeLimit = function(fn, t) {
                 .then((result) => {
                     clearTimeout(timeout); 
                     resolve(result); 
+                    console.log("in .then")
                 })
                 .catch((error) => {
                     clearTimeout(timeout); 
                     reject(error); 
+                    console.log("in .error")
+
                 });
         });
     };
@@ -31,6 +35,8 @@ var timeLimit = function(fn, t) {
     }
     const inputs1 = [5];
     const t1 = 50;
+
+    console.log("calling limited1")
 
     const limited1 = timeLimit(fn1, t1);
     const start1 = performance.now();
