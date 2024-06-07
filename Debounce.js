@@ -6,17 +6,17 @@
 
 
 function debounce(fn, t) {
-  let timerId;
-
-  return function (...args) {
-    clearTimeout(timerId);
-
-    timerId = setTimeout(() => {
-      fn.apply(this, args);
-    }, t);
-  };
-}
-
+    let timerId;
+  
+    return function (...args) {
+      clearTimeout(timerId);
+  
+      timerId = setTimeout(() => {
+        fn(...args); 
+      }, t);
+    };
+  }
+  
 // Testing the debounced function with provided examples
 function testDebounce() {
   let start = Date.now();
