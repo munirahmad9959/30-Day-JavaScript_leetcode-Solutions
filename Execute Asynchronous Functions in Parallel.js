@@ -4,28 +4,24 @@
  */
 var promiseAll = function(functions) {
     return new Promise((resolve, reject) => {
-        const results = [];
+        const results = new Array(functions.length); 
         let resolvedCount = 0;
         let hasRejected = false;
 
         functions.forEach((fn, index) => {
-            fn()
-                .then(result => {
-                    results[index] = result;
-                    resolvedCount += 1;
+            fn().then(result => {
+                results[index] = result;
+                resolvedCount += 1;
 
-                    if (resolvedCount === functions.length) {
-                        console.log("Resolved promise values are: ", results);
-                        resolve(results);
-                    }
-                })
-                .catch(error => {
-                    if (!hasRejected) {
-                        hasRejected = true;
-                        console.log("Rejected promise values are: ", error);
-                        reject(error);
-                    }
-                });
+                if (resolvedCount === functions.length) {
+                    resolve(results); 
+                }
+            }).catch(error => {
+                if (!hasRejected) {
+                    hasRejected = true;
+                    reject(error); 
+                }
+            });
         });
     });
 };
