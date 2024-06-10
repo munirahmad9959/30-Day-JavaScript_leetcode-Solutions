@@ -1,3 +1,8 @@
+/**
+ * @param {Array} arr
+ * @param {number} size
+ * @return {Array}
+ */
 function chunkArray(arr, size) {
     const result = [];
     for (let i = 0; i < arr.length; i += size) {
