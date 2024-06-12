@@ -3,13 +3,20 @@
  * @param {Function} fn
  * @return {Array}
  */
-var sortBy = function (arr, fn) {
-    let mappedArr = arr.map((element) => [fn(element), element]);
+// var sortBy = function (arr, fn) {
+//     let mappedArr = arr.map((element) => [fn(element), element]);
 
-    mappedArr.sort((a,b) => a[0] - b[0])
+//     mappedArr.sort((a,b) => a[0] - b[0])
 
-    return mappedArr.map((element) => element[1]);
-};
+//     return mappedArr.map((element) => element[1]);
+// };
+
+
+var sortBy = (arr, fn) => {                                             //Another short yep easy method
+  const sortedArr = arr;
+  sortedArr.sort((a, b) => fn(a) - fn(b))
+  return sortedArr;
+}
 
 
 console.log(sortBy([5, 4, 1, 2, 3], (x) => x)); // Output: [1, 2, 3, 4, 5]
