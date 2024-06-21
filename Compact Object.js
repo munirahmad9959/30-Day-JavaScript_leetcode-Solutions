@@ -3,36 +3,57 @@
  * @return {Object|Array}
  */
 var compactObject = function (obj) {
-
     if (Array.isArray(obj)) {
-        return obj.filter(element => {
-            if (element === null) return false;
-            if (Array.isArray(element) || typeof element === 'object') {
-                return compactObject(element).length > 0
-            }
-            return Boolean(element);
-        });
+        const filteredArray = obj.map((element) => compactObject(element)).filter((element) => element !== undefined);
+        return filteredArray.length > 0 ? filteredArray : [];
     } else if (typeof obj === 'object' && obj !== null) {
-        const compactedObject = {};
+        const result = {}
         for (const key in obj) {
             if (obj.hasOwnProperty(key)) {
-                const value = obj[key];
-                if (value === null) continue;
-                if (Array.isArray(value) || typeof value === 'object') {
-                    const compactedValue = compactObject(value);
-                    if (compactedValue.length > 0) {
-                        compactedObject[key] = compactedValue;
-                    }
-                } else if (Boolean(value)) {
-                    compactedObject[key] = value;
+                const element = obj[key];
+                const compactedValue = compactObject(element)
+                if (compactedValue !== undefined) {
+                    result[key] = compactedValue;
                 }
             }
         }
-        return compactedObject;
+        return Object.keys(result).length > 0 ? result : undefined
     } else {
-        return obj;
+        return Boolean(obj) ? obj : undefined
     }
 };
 
-const obj = [null, 0, 5, [0], [false, 16]];
-console.log(compactObject(obj));
+
+//same implementation using reduce function
+/**
+ * @param {Object|Array} obj
+ * @return {Object|Array}
+ */
+var compactObject = function (obj) {
+    if (Array.isArray(obj)) {
+        return obj.reduce((acc, element) => {
+            const compactedElement = compactObject(element);
+            if (compactedElement !== undefined) {
+                acc.push(compactedElement);
+            }
+            return acc;
+        }, []);
+    } else if (typeof obj === 'object' && obj !== null) {
+        return Object.keys(obj).reduce((acc, key) => {
+            const compactedValue = compactObject(obj[key]);
+            if (compactedValue !== undefined) {
+                acc[key] = compactedValue;
+            }
+            return acc;
+        }, {});
+    } else {
+        return Boolean(obj) ? obj : undefined;
+    }
+};
+
+
+
+// Test cases
+console.log(compactObject([null, 0, false, 1])); // Output: [1]
+console.log(compactObject({"a": null, "b": [false, 1]})); // Output: {"b": [1]}
+console.log(compactObject([null, 0, 5, [0], [false, 16]])); // Output: [5, [], [16]]
