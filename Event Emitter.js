@@ -1,6 +1,6 @@
 class EventEmitter {
     constructor() {
-        this.events = {}; // This will hold the event names and their corresponding callback arrays
+        this.events = {}; 
     }
 
     /**
@@ -14,10 +14,8 @@ class EventEmitter {
         }
         this.events[eventName].push(callback);
 
-        // Return the unsubscribe object
         return {
             unsubscribe: () => {
-                // Find the index of the callback and remove it from the array
                 this.events[eventName] = this.events[eventName].filter(cb => cb !== callback);
             }
         };
@@ -30,9 +28,8 @@ class EventEmitter {
      */
     emit(eventName, args = []) {
         if (!this.events[eventName]) {
-            return []; // If no callbacks are registered for the event, return an empty array
+            return []; 
         }
-        // Call all the callbacks with the provided arguments and return their results
         return this.events[eventName].map(callback => callback(...args));
     }
 }
