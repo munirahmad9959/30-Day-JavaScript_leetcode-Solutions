@@ -11,7 +11,7 @@ To participate in this challenge, follow these steps:
 2. **Clone the Repository**: Clone the forked repository to your local machine using the following command:
 
    ```bash
-   git clone https://github.com/your-username/30-day-javascript-challenge.git
+   git clone https://github.com/munirahmad9959/leetcode-problems.git
    ```
 
 3. **Install Dependencies**: If a challenge requires any external dependencies, they will be specified in the challenge description. Make sure to install these dependencies using npm or yarn before starting the challenge.
