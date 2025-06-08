@@ -1,4 +1,4 @@
-# My 30-Day JavaScript Challenge
+# JavaScript Challenges + Leetcode Solutions
 
 Welcome to my 30-Day JavaScript Challenge! This challenge is designed to help me improve my JavaScript skills through daily coding exercises. Each day, I'll be challenging myself with a new problem to solve, covering various topics and concepts within the language.
 
